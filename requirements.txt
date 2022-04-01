@@ -1,5 +1,5 @@
-# torch
-# torchvision
-mmcv-full==1.3.9
+torch
+torchvision
+mmcv-full
 wandb
 prettytable
