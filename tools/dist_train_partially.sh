@@ -15,7 +15,10 @@ if [[ ${TYPE} == 'baseline' ]]; then
         $(dirname "$0")/train.py configs/baseline/faster_rcnn_r50_caffe_fpn_coco_partial_180k.py --launcher pytorch \
         --cfg-options fold=${FOLD} percent=${PERCENT} ${@:5}
 else
+    # python -m torch.distributed.launch --nproc_per_node=$GPUS --master_port=$PORT \
+    #     $(dirname "$0")/train.py configs/soft_teacher/soft_teacher_faster_rcnn_r50_caffe_fpn_coco_180k.py --launcher pytorch \
+    #     --cfg-options fold=${FOLD} percent=${PERCENT} ${@:5}
     python -m torch.distributed.launch --nproc_per_node=$GPUS --master_port=$PORT \
-        $(dirname "$0")/train.py configs/soft_teacher/soft_teacher_faster_rcnn_r50_caffe_fpn_coco_180k.py --launcher pytorch \
+        $(dirname "$0")/train.py configs/soft_teacher/scooter.py --launcher pytorch \
         --cfg-options fold=${FOLD} percent=${PERCENT} ${@:5}
 fi

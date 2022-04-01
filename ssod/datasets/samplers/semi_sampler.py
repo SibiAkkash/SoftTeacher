@@ -35,6 +35,9 @@ class DistributedGroupSemiBalanceSampler(Sampler):
         self.rank = rank
         self.epoch = 0
         self.by_prob = by_prob
+        print(num_replicas)
+        print(samples_per_gpu)
+        
 
         assert hasattr(self.dataset, "flag")
         self.flag = self.dataset.flag
@@ -74,6 +77,7 @@ class DistributedGroupSemiBalanceSampler(Sampler):
                 self.num_samples += self.size_of_dataset[-1] * self.sample_ratio[j]
 
         self.total_size = self.num_samples * self.num_replicas
+        print('total size', self.total_size)
         group_factor = [g / sum(self.group_sizes) for g in self.group_sizes]
         self.epoch_length = [int(np.round(gf * epoch_length)) for gf in group_factor]
         self.epoch_length[-1] = epoch_length - sum(self.epoch_length[:-1])
@@ -184,6 +188,13 @@ class DistributedGroupSemiBalanceSampler(Sampler):
 
         offset = len(self) * self.rank
         indices = indices[offset : offset + len(self)]
+        print(f'len(indices) = {len(indices)}')
+        print(f'len(self) = {len(self)}')
+        # print(f'{sum() = }')
+        
+        _epoch_length=int(self.total_size/self.samples_per_gpu/self.num_replicas)
+        print('epoch length', _epoch_length)
+
         assert len(indices) == len(self)
         return iter(indices)
 

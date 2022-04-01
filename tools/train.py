@@ -19,6 +19,7 @@ from ssod.apis import get_root_logger, set_random_seed, train_detector
 from ssod.datasets import build_dataset
 from ssod.utils import patch_config
 
+import wandb
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Train a detector")
@@ -181,6 +182,10 @@ def main():
         cfg.checkpoint_config.meta = dict(
             mmdet_version=__version__ + get_git_hash()[:7], CLASSES=datasets[0].CLASSES
         )
+        
+    wandb.login(key="9bfa68eb01572fc65513ce665aa3ac222da82a83")
+        
+        
     # add an attribute for visualization convenience
     model.CLASSES = datasets[0].CLASSES
     train_detector(

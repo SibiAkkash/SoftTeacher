@@ -36,3 +36,9 @@ launch.py
 *.sqlite
 
 .pytest*
+
+
+
+*.json
+*.zip
+*.log
