@@ -31,3 +31,22 @@ data = dict(
 )
 
 load_from = "/media/sibi/DATA/dev/ai/internship/SoftTeacher/checkpoints/faster_rcnn_r50_fpn_1x_coco_20200130-047c8118.pth"
+
+log_config = dict(
+    interval=10,
+    hooks=[
+        dict(
+            type="WandbLogger",
+            init_kwargs=dict(
+                project="scooter-supervised",
+                name="scooter_faster_rcnn_r50_fpn",
+                config=dict(
+                    work_dirs="work_dirs/scooter-supervised",
+                    total_step="${runner.max_epochs}"),
+            ),
+            logging_interval=10,
+            log_checkpoint=True,
+            log_checkpoint_metadata=True,
+        )
+    ],
+)

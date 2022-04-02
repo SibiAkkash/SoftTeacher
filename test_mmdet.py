@@ -129,7 +129,7 @@ def convert_dataset_to_coco(dataset_path, split="train"):
                 bbox=[xmin, ymin, xmax - xmin, ymax - ymin],
                 area=(xmax - xmin) * (ymax - ymin),
                 # segmentation=[],
-                # iscrowd=0,
+                iscrowd=0,
             )
 
             annotations.append(annot)
@@ -164,4 +164,4 @@ def convert_dataset_to_coco(dataset_path, split="train"):
 if __name__ == "__main__":
     ds_path = "../yolov5/experiments/scooter-ds-cp"
     convert_dataset_to_coco(ds_path, split="train")
-    # convert_dataset_to_coco(ds_path, split="val")
+    convert_dataset_to_coco(ds_path, split="val")

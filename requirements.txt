@@ -4,3 +4,5 @@ mmcv-full
 wandb
 prettytable
 opencv-python
+ipykernel
+tqdm
