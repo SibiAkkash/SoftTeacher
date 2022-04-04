@@ -82,7 +82,7 @@ categories = [{
 
 
 def convert_dataset_to_coco(dataset_path, split="train"):
-    images_path = osp.join(dataset_path, "images", split)
+    images_path = osp.join(dataset_path, "labelled_images", split)
     labels_path = osp.join(dataset_path, "labels", split)
     annotations_save_path = osp.join(dataset_path, "annotations")
 
@@ -144,7 +144,7 @@ def convert_dataset_to_coco(dataset_path, split="train"):
         json.dump(labelled_combined, f)
 
     # unlabelled images
-    unlabelled_images_path = osp.join(dataset_path, "unlabelled")
+    unlabelled_images_path = osp.join(dataset_path, "unlabelled_images")
     unlabelled_images = []
     for un_image_idx, un_file in tqdm(enumerate(os.scandir(unlabelled_images_path))):
         unlabelled_images.append(

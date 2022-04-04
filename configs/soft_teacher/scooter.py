@@ -1,5 +1,7 @@
 _base_ = "base.py"
 
+classes = ("scooter",)
+
 data = dict(
     samples_per_gpu=4,
     workers_per_gpu=2,
@@ -7,19 +9,23 @@ data = dict(
         sup=dict(
             ann_file="../yolov5/experiments/scooter-ds-cp/annotations/train.json",
             img_prefix="../yolov5/experiments/scooter-ds-cp/images/train/",
+            classes=classes,
         ),
         unsup=dict(
             ann_file="../yolov5/experiments/scooter-ds-cp/annotations/unlabelled.json",
             img_prefix="../yolov5/experiments/scooter-ds-cp/unlabelled/",
+            classes=classes,
         ),
     ),
     val=dict(
         ann_file="../yolov5/experiments/scooter-ds-cp/annotations/val.json",
         img_prefix="../yolov5/experiments/scooter-ds-cp/images/val/",
+        classes=classes,
     ),
     test=dict(
         ann_file="../yolov5/experiments/scooter-ds-cp/annotations/val.json",
         img_prefix="../yolov5/experiments/scooter-ds-cp/images/val/",
+        classes=classes,
     ),
     sampler=dict(train=dict(sample_ratio=[1, 4])),
 )
