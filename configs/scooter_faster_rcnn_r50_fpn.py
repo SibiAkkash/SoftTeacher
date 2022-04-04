@@ -10,22 +10,23 @@ model = dict(
 
 dataset_type = "COCODataset"
 classes = ("scooter",)
+data_root = "../scooter-ds-cp"
 data = dict(
     samples_per_gpu=4,
     workers_per_gpu=2,
     train=dict(
-        ann_file="../yolov5/experiments/scooter-ds-cp/annotations/train.json",
-        img_prefix="../yolov5/experiments/scooter-ds-cp/images/train/",
+        ann_file=f"{data_root}/annotations/train.json",
+        img_prefix=f"{data_root}/images_labelled/train/",
         classes=classes,
     ),
     val=dict(
-        ann_file="../yolov5/experiments/scooter-ds-cp/annotations/val.json",
-        img_prefix="../yolov5/experiments/scooter-ds-cp/images/val/",
+        ann_file=f"{data_root}/annotations/val.json",
+        img_prefix=f"{data_root}/images/val/",
         classes=classes,
     ),
     test=dict(
-        ann_file="../yolov5/experiments/scooter-ds-cp/annotations/val.json",
-        img_prefix="../yolov5/experiments/scooter-ds-cp/images/val/",
+        ann_file=f"{data_root}/annotations/val.json",
+        img_prefix=f"{data_root}/images/val/",
         classes=classes,
     ),
 )

@@ -1,30 +1,30 @@
 _base_ = "base.py"
 
 classes = ("scooter",)
-
+data_root = "../scooter-ds-cp"
 data = dict(
     samples_per_gpu=4,
     workers_per_gpu=2,
     train=dict(
         sup=dict(
-            ann_file="../yolov5/experiments/scooter-ds-cp/annotations/train.json",
-            img_prefix="../yolov5/experiments/scooter-ds-cp/images/train/",
+            ann_file=f"{data_root}/annotations/train.json",
+            img_prefix=f"{data_root}/labelled_images/train/",
             classes=classes,
         ),
         unsup=dict(
-            ann_file="../yolov5/experiments/scooter-ds-cp/annotations/unlabelled.json",
-            img_prefix="../yolov5/experiments/scooter-ds-cp/unlabelled/",
+            ann_file=f"{data_root}/annotations/unlabelled.json",
+            img_prefix=f"{data_root}/unlabelled_images/",
             classes=classes,
         ),
     ),
     val=dict(
-        ann_file="../yolov5/experiments/scooter-ds-cp/annotations/val.json",
-        img_prefix="../yolov5/experiments/scooter-ds-cp/images/val/",
+        ann_file=f"{data_root}/annotations/val.json",
+        img_prefix=f"{data_root}/labelled_images/val/",
         classes=classes,
     ),
     test=dict(
-        ann_file="../yolov5/experiments/scooter-ds-cp/annotations/val.json",
-        img_prefix="../yolov5/experiments/scooter-ds-cp/images/val/",
+        ann_file=f"{data_root}/annotations/val.json",
+        img_prefix=f"{data_root}/labelled_images/val/",
         classes=classes,
     ),
     sampler=dict(train=dict(sample_ratio=[1, 4])),
