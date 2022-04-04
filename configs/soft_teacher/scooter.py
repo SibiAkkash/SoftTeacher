@@ -27,7 +27,15 @@ data = dict(
         img_prefix=f"{data_root}/labelled_images/val/",
         classes=classes,
     ),
-    sampler=dict(train=dict(sample_ratio=[1, 4])),
+    sampler=dict(
+        train=dict(
+            type="SemiBalanceSampler",
+            sample_ratio=[1, 4],
+            by_prob=False,          # errors out when this is True
+            # at_least_one=True,
+            epoch_length=7330,      # this should be dynamic, depends on size of dataset and batch size
+        )
+    ),
 )
 
 model = dict(
@@ -38,11 +46,11 @@ model = dict(
     )
 )
 
-# semi_wrapper = dict(
-#     train_cfg=dict(
-#         unsup_weight=2.0,
-#     )
-# )
+semi_wrapper = dict(
+    train_cfg=dict(
+        unsup_weight=2.0,
+    )
+)
 
 # lr_config = dict(step=[120000 * 4, 160000 * 4])
 # runner = dict(_delete_=True, type="IterBasedRunner", max_iters=180000 * 4)
@@ -72,3 +80,12 @@ log_config = dict(
         ),
     ],
 )
+
+evaluation = dict(type="SubModulesDistEvalHook", interval=4000)
+optimizer = dict(type="SGD", lr=0.001, momentum=0.9, weight_decay=0.0001)
+lr_config = dict(step=[120000, 160000])
+runner = dict(_delete_=True, type="IterBasedRunner", max_iters=180000)
+checkpoint_config = dict(by_epoch=False, interval=4000, max_keep_ckpts=20)
+
+fp16 = dict(loss_scale="dynamic")
+load_from = "checkpoints/faster_rcnn_r50_fpn_1x_coco_20200130-047c8118.pth"
